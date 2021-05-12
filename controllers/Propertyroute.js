@@ -10,9 +10,12 @@ const fs = require('fs')
 const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.json({ extended: false });
+const {requireAuth} = require('../middleware/authMiddleware')
+
+
 
 //GET METHOD
-router.get("/getproperty", async (req,res)=>{
+router.get("/getproperty", requireAuth, async (req,res)=>{
     const pageNumber = 1;
     const PageSize = 5;
     const property= await Property.find()
@@ -26,7 +29,7 @@ router.get("/getproperty", async (req,res)=>{
 
 
 //Filter Search Router
-router.get("/getproperty/:society/:name/:category/:minprice/:maxprice", async (req,res)=>{
+router.get("/getproperty/:society/:name/:category/:minprice/:maxprice", requireAuth, async (req,res)=>{
     const pageNumber = 1;
     const PageSize = 5;
     try{
